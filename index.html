@@ -23,6 +23,10 @@ main{max-width:760px;margin:auto;padding:18px 14px}
 .day{background:rgba(255,255,255,.95);border-radius:24px;margin-bottom:16px;overflow:hidden;box-shadow:0 10px 28px rgba(65,38,24,.10);border:1px solid rgba(90,60,45,.07)}
 .day h2{font-size:21px;margin:0;padding:17px 18px;border-bottom:1px solid var(--border);background:linear-gradient(90deg,#fff,#fff8f3)}
 .group{padding:13px 16px 5px}.group h3{font-size:13px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);margin:0 0 8px}
+.group h3::before{content:"";display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:8px;background:var(--yellow)}
+.group:nth-of-type(3) h3::before{background:var(--accent)}
+.group:nth-of-type(4) h3::before{background:var(--green)}
+.group:nth-of-type(5) h3::before{background:#9b7bd3}
 .option{display:flex;align-items:flex-start;gap:12px;padding:12px 10px;margin:0 -2px;border-radius:14px;font-size:17px;line-height:1.25;transition:.18s ease}
 .option:has(input:checked){background:#fff1e8;transform:translateX(2px)}
 .option br{display:none}
@@ -42,7 +46,7 @@ button{border:0;border-radius:16px;padding:15px 12px;font-size:16px;font-weight:
 </style>
 </head>
 <body>
-<header><h1>🍽️ I miei Menù</h1><div class="sub">Scegli liberamente: puoi saltare il primo e prendere più contorni</div></header>
+<header><h1>🍽️ I miei Menù</h1><div class="sub">Scegli liberamente il tuo pranzo: un primo e due contorni, un secondo e due contorni oppure un menù completo con primo, secondo, contorno, pane, frutta e acqua (quando previsti).</div></header>
 <main>
 <section id="summaryBox"><h2>✨ Il tuo riepilogo</h2><div id="summaryText"></div><div class="summaryActions"><button class="copyBtn" id="copyBtn">📋 Copia</button><button class="shareBtn" id="shareBtn">💬 Condividi</button></div><div class="small">Le scelte vengono salvate automaticamente su questo iPhone.</div></section>
 <div id="days"></div>
