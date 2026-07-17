@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#ffffff">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="I miei Menù">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="icon-180.png">
+<title>I miei Menù</title>
+<style>
+:root{--bg:#f2f2f7;--card:#fff;--text:#111;--muted:#6e6e73;--border:#d1d1d6;--accent:#007aff;}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text",Arial,sans-serif;color:var(--text);padding-bottom:110px}
+header{position:sticky;top:0;z-index:10;background:rgba(242,242,247,.92);backdrop-filter:blur(14px);padding:calc(14px + env(safe-area-inset-top)) 16px 12px;border-bottom:1px solid var(--border)}
+h1{margin:0;font-size:28px} .sub{color:var(--muted);margin-top:4px;font-size:14px}
+main{max-width:760px;margin:auto;padding:14px}
+.day{background:var(--card);border-radius:18px;margin-bottom:14px;overflow:hidden;box-shadow:0 1px 2px rgba(0,0,0,.05)}
+.day h2{font-size:21px;margin:0;padding:16px;border-bottom:1px solid var(--border)}
+.group{padding:12px 16px 4px} .group h3{font-size:14px;text-transform:uppercase;letter-spacing:.04em;color:var(--muted);margin:0 0 8px}
+.option{display:flex;align-items:flex-start;gap:10px;padding:10px 0;border-bottom:1px solid #ececf0;font-size:17px}
+.option:last-child{border-bottom:0} input{width:23px;height:23px;accent-color:var(--accent);flex:0 0 auto}
+.actions{position:fixed;left:0;right:0;bottom:0;padding:10px 14px calc(10px + env(safe-area-inset-bottom));background:rgba(255,255,255,.94);backdrop-filter:blur(14px);border-top:1px solid var(--border);display:flex;gap:10px;z-index:20}
+button{border:0;border-radius:13px;padding:14px;font-size:17px;font-weight:650;flex:1} .primary{background:var(--accent);color:white} .secondary{background:#e5e5ea;color:#111}
+#summaryBox{display:none;background:var(--card);border-radius:18px;padding:16px;margin-bottom:14px}
+#summaryText{white-space:pre-wrap;line-height:1.45;font-size:16px}
+.small{font-size:13px;color:var(--muted);margin-top:8px}
+</style>
+</head>
+<body>
+<header><h1>I miei Menù</h1><div class="sub">Menu dal 20 al 24 luglio 2026</div></header>
+<main>
+<section id="summaryBox"><h2>Riepilogo delle scelte</h2><div id="summaryText"></div><div class="small">Le scelte vengono salvate automaticamente su questo iPhone.</div></section>
+<div id="days"></div>
+</main>
+<div class="actions">
+<button class="secondary" id="resetBtn">Azzera</button>
+<button class="primary" id="summaryBtn">Crea riepilogo</button>
+</div>
+<script>
+const menu={"Lunedì 20": {"Primo": ["Pasta integrale pomodoro e olive", "Pasta all'olio", "Pasta al pomodoro", "Riso all'olio", "Riso al pomodoro"], "Secondo": ["Merluzzo al limone", "Uova sode", "Pizza margherita", "Formaggio grana", "Spezzatino di vitello"], "Contorno": ["Spinaci", "Patate e fagiolini", "Cetrioli"]}, "Martedì 21": {"Primo": ["Risotto cremoso alle zucchine", "Pasta al pomodoro", "Pasta all'olio", "Riso all'olio", "Riso al pomodoro"], "Secondo": ["Seppioline in umido", "Bresaola", "Tortino di legumi", "Caprese (mozzarella e pomodoro)"], "Contorno": ["Broccoli", "Insalata", "Misto di verdure grigliate"]}, "Mercoledì 22": {"Primo": ["Gnocchetti al pesto di zucchine", "Riso al pomodoro", "Pasta al pomodoro", "Riso all'olio", "Pasta all'olio", "Minestrone con riso"], "Secondo": ["Platessa gratinata", "Taleggio", "Tortino di ceci", "Mortadella", "Fettine di tacchino alla valdostana"], "Contorno": ["Fagiolini", "Carote cotte", "Insalata verde e rossa"]}, "Giovedì 23": {"Primo": ["Insalata di riso", "Pasta all'olio", "Pasta al pomodoro", "Riso al pomodoro", "Riso all'olio"], "Secondo": ["Fusi di pollo", "Crescenza", "Speck", "Piatto freddo", "Hamburger di verdure"], "Contorno": ["Cavolfiore gratinato", "Fagiolini", "Carote julienne"]}, "Venerdì 24": {"Primo": ["Ravioli di magro", "Pasta pomodoro e ricotta", "Riso all'olio", "Pasta all'olio", "Riso al pomodoro", "Pasta al pomodoro", "Passato di verdure e legumi con orzo"], "Secondo": ["Frittata", "Lenticchie al pomodoro", "Pollo pomodoro e olive", "Formaggio brie", "Tonno alla mediterranea"], "Contorno": ["Tris di verdure al forno", "Zucchine al forno", "Barbabietole"]}};
+const daysEl=document.getElementById('days');
+const saved=JSON.parse(localStorage.getItem('menuChoices')||'{}');
+
+for(const [day,groups] of Object.entries(menu)){
+  const card=document.createElement('section'); card.className='day';
+  card.innerHTML=`<h2>${day}</h2>`;
+  for(const [group,items] of Object.entries(groups)){
+    const wrap=document.createElement('div'); wrap.className='group';
+    wrap.innerHTML=`<h3>${group}</h3>`;
+    items.forEach(item=>{
+      const id=btoa(unescape(encodeURIComponent(day+'|'+group+'|'+item))).replace(/=/g,'');
+      const label=document.createElement('label'); label.className='option';
+      label.innerHTML=`<input type="checkbox" id="${id}" data-day="${day}" data-group="${group}" data-item="${item}"><span>${item}</span>`;
+      const cb=label.querySelector('input');
+      cb.checked=!!saved[id];
+      cb.addEventListener('change',saveChoices);
+      wrap.appendChild(label);
+    });
+    card.appendChild(wrap);
+  }
+  daysEl.appendChild(card);
+}
+
+function saveChoices(){
+  const state={};
+  document.querySelectorAll('input[type=checkbox]').forEach(cb=>{if(cb.checked) state[cb.id]=true;});
+  localStorage.setItem('menuChoices',JSON.stringify(state));
+}
+
+function makeSummary(){
+  let text='';
+  for(const day of Object.keys(menu)){
+    const selected=[...document.querySelectorAll(`input[data-day="${day}"]:checked`)];
+    if(selected.length){
+      text+=day+'\n';
+      selected.forEach(cb=>text+=`• ${cb.dataset.group}: ${cb.dataset.item}\n`);
+      text+='\n';
+    }
+  }
+  document.getElementById('summaryText').textContent=text||'Non hai ancora selezionato nulla.';
+  document.getElementById('summaryBox').style.display='block';
+  document.getElementById('summaryBox').scrollIntoView({behavior:'smooth',block:'start'});
+}
+
+document.getElementById('summaryBtn').addEventListener('click',async()=>{
+  makeSummary();
+  const text=document.getElementById('summaryText').textContent;
+  try{await navigator.clipboard.writeText(text); document.getElementById('summaryBtn').textContent='Riepilogo copiato'; setTimeout(()=>document.getElementById('summaryBtn').textContent='Crea riepilogo',1800);}catch(e){}
+});
+document.getElementById('resetBtn').addEventListener('click',()=>{
+  if(confirm('Vuoi cancellare tutte le scelte?')){
+    document.querySelectorAll('input[type=checkbox]').forEach(cb=>cb.checked=false);
+    localStorage.removeItem('menuChoices');
+    document.getElementById('summaryBox').style.display='none';
+  }
+});
+if('serviceWorker' in navigator) navigator.serviceWorker.register('./service-worker.js');
+</script>
+</body>
+</html>

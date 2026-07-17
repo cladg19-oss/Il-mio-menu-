@@ -1,0 +1,11 @@
+I MIEI MENÙ – APP PER IPHONE
+
+Questa cartella contiene una Progressive Web App (PWA).
+
+Per installarla come app sull’iPhone:
+1. Pubblica tutti i file su un sito HTTPS, per esempio GitHub Pages.
+2. Apri il sito con Safari.
+3. Tocca Condividi.
+4. Tocca “Aggiungi alla schermata Home”.
+
+La pagina salva automaticamente le selezioni sul dispositivo e funziona anche offline dopo il primo caricamento.
