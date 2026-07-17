@@ -11,28 +11,40 @@
 <link rel="apple-touch-icon" href="icon-180.png">
 <title>I miei Menù</title>
 <style>
-:root{--bg:#f2f2f7;--card:#fff;--text:#111;--muted:#6e6e73;--border:#d1d1d6;--accent:#007aff;}
+:root{--bg:#fff8f3;--card:#fff;--text:#2c2522;--muted:#7a6e68;--border:#eadfd8;--accent:#ff7657;--green:#64b88f;--yellow:#ffc85a}
 *{box-sizing:border-box}
-body{margin:0;background:var(--bg);font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text",Arial,sans-serif;color:var(--text);padding-bottom:110px}
-header{position:sticky;top:0;z-index:10;background:rgba(242,242,247,.92);backdrop-filter:blur(14px);padding:calc(14px + env(safe-area-inset-top)) 16px 12px;border-bottom:1px solid var(--border)}
-h1{margin:0;font-size:28px} .sub{color:var(--muted);margin-top:4px;font-size:14px}
-main{max-width:760px;margin:auto;padding:14px}
-.day{background:var(--card);border-radius:18px;margin-bottom:14px;overflow:hidden;box-shadow:0 1px 2px rgba(0,0,0,.05)}
-.day h2{font-size:21px;margin:0;padding:16px;border-bottom:1px solid var(--border)}
-.group{padding:12px 16px 4px} .group h3{font-size:14px;text-transform:uppercase;letter-spacing:.04em;color:var(--muted);margin:0 0 8px}
-.option{display:flex;align-items:flex-start;gap:10px;padding:10px 0;border-bottom:1px solid #ececf0;font-size:17px}
-.option:last-child{border-bottom:0} input{width:23px;height:23px;accent-color:var(--accent);flex:0 0 auto}
-.actions{position:fixed;left:0;right:0;bottom:0;padding:10px 14px calc(10px + env(safe-area-inset-bottom));background:rgba(255,255,255,.94);backdrop-filter:blur(14px);border-top:1px solid var(--border);display:flex;gap:10px;z-index:20}
-button{border:0;border-radius:13px;padding:14px;font-size:17px;font-weight:650;flex:1} .primary{background:var(--accent);color:white} .secondary{background:#e5e5ea;color:#111}
-#summaryBox{display:none;background:var(--card);border-radius:18px;padding:16px;margin-bottom:14px}
-#summaryText{white-space:pre-wrap;line-height:1.45;font-size:16px}
+body{margin:0;background:radial-gradient(circle at 90% 5%,rgba(255,200,90,.30),transparent 28%),radial-gradient(circle at 5% 22%,rgba(100,184,143,.16),transparent 25%),var(--bg);font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text",Arial,sans-serif;color:var(--text);padding-bottom:112px}
+header{position:relative;overflow:hidden;background:linear-gradient(135deg,#ff7354,#ff9b65 55%,#ffc15a);color:#fff;padding:calc(24px + env(safe-area-inset-top)) 18px 28px;border-radius:0 0 30px 30px;box-shadow:0 12px 28px rgba(96,49,25,.16)}
+header:before,header:after{content:"";position:absolute;border-radius:50%;background:rgba(255,255,255,.14)}
+header:before{width:170px;height:170px;right:-55px;top:-70px}
+header:after{width:110px;height:110px;left:-45px;bottom:-55px}
+h1{margin:0;font-size:30px;position:relative}.sub{margin-top:7px;font-size:15px;opacity:.94;position:relative}
+main{max-width:760px;margin:auto;padding:18px 14px}
+.day{background:rgba(255,255,255,.95);border-radius:24px;margin-bottom:16px;overflow:hidden;box-shadow:0 10px 28px rgba(65,38,24,.10);border:1px solid rgba(90,60,45,.07)}
+.day h2{font-size:21px;margin:0;padding:17px 18px;border-bottom:1px solid var(--border);background:linear-gradient(90deg,#fff,#fff8f3)}
+.group{padding:13px 16px 5px}.group h3{font-size:13px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);margin:0 0 8px}
+.option{display:flex;align-items:flex-start;gap:12px;padding:12px 10px;margin:0 -2px;border-radius:14px;font-size:17px;line-height:1.25;transition:.18s ease}
+.option:has(input:checked){background:#fff1e8;transform:translateX(2px)}
+.option br{display:none}
+input{appearance:none;width:24px;height:24px;border-radius:8px;border:2px solid #d8ccc5;background:white;flex:0 0 auto;margin:0;display:grid;place-items:center}
+input:checked{background:linear-gradient(135deg,var(--accent),#ff9d64);border-color:transparent}
+input:checked:after{content:"✓";color:#fff;font-size:16px;font-weight:900}
+.actions{position:fixed;left:0;right:0;bottom:0;padding:10px 12px calc(10px + env(safe-area-inset-bottom));background:rgba(255,255,255,.90);backdrop-filter:blur(18px);border-top:1px solid rgba(80,60,50,.10);display:grid;grid-template-columns:.8fr 1.2fr;gap:10px;z-index:20}
+button{border:0;border-radius:16px;padding:15px 12px;font-size:16px;font-weight:800}
+.primary{background:linear-gradient(135deg,var(--accent),#ff9b63);color:#fff;box-shadow:0 8px 20px rgba(255,118,87,.27)}
+.secondary{background:#f0ebe7;color:#514843}
+#summaryBox{display:none;background:var(--card);border-radius:24px;padding:18px;margin-bottom:16px;box-shadow:0 10px 28px rgba(65,38,24,.10)}
+#summaryText{white-space:pre-wrap;background:#fff8f3;border-radius:17px;padding:14px;line-height:1.5;font-size:16px}
+.summaryActions{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px}
+.shareBtn{background:linear-gradient(135deg,#64b88f,#48a477);color:white}
+.copyBtn{background:#eaf1ff;color:#285dac}
 .small{font-size:13px;color:var(--muted);margin-top:8px}
 </style>
 </head>
 <body>
-<header><h1>I miei Menù</h1><div class="sub">Menu dal 20 al 24 luglio 2026</div></header>
+<header><h1>🍽️ I miei Menù</h1><div class="sub">Scegli liberamente: puoi saltare il primo e prendere più contorni</div></header>
 <main>
-<section id="summaryBox"><h2>Riepilogo delle scelte</h2><div id="summaryText"></div><div class="small">Le scelte vengono salvate automaticamente su questo iPhone.</div></section>
+<section id="summaryBox"><h2>✨ Il tuo riepilogo</h2><div id="summaryText"></div><div class="summaryActions"><button class="copyBtn" id="copyBtn">📋 Copia</button><button class="shareBtn" id="shareBtn">💬 Condividi</button></div><div class="small">Le scelte vengono salvate automaticamente su questo iPhone.</div></section>
 <div id="days"></div>
 </main>
 <div class="actions">
@@ -85,10 +97,15 @@ function makeSummary(){
   document.getElementById('summaryBox').scrollIntoView({behavior:'smooth',block:'start'});
 }
 
-document.getElementById('summaryBtn').addEventListener('click',async()=>{
-  makeSummary();
+document.getElementById('summaryBtn').addEventListener('click',()=>makeSummary());
+document.getElementById('copyBtn').addEventListener('click',async()=>{
   const text=document.getElementById('summaryText').textContent;
-  try{await navigator.clipboard.writeText(text); document.getElementById('summaryBtn').textContent='Riepilogo copiato'; setTimeout(()=>document.getElementById('summaryBtn').textContent='Crea riepilogo',1800);}catch(e){}
+  try{await navigator.clipboard.writeText(text); document.getElementById('copyBtn').textContent='✓ Copiato'; setTimeout(()=>document.getElementById('copyBtn').textContent='📋 Copia',1400);}catch(e){}
+});
+document.getElementById('shareBtn').addEventListener('click',async()=>{
+  const text=document.getElementById('summaryText').textContent;
+  if(navigator.share){await navigator.share({title:'I miei Menù',text});}
+  else{window.open('https://wa.me/?text='+encodeURIComponent(text),'_blank');}
 });
 document.getElementById('resetBtn').addEventListener('click',()=>{
   if(confirm('Vuoi cancellare tutte le scelte?')){
