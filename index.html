@@ -51,6 +51,34 @@ main{max-width:1240px;margin:auto;padding:20px 14px}
 .handle{width:46px;height:5px;border-radius:99px;background:#ded3cd;margin:0 auto 15px}.sheet h2{margin:0 0 12px;font-size:25px}
 #summaryText{white-space:pre-wrap;background:#fff8f3;border-radius:17px;padding:15px;line-height:1.55;font-size:16px;border:1px solid #f2e3da}.sheetActions{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px}.copy{background:#eef4ff;color:#245baf}.share{background:#eaf8f0;color:#23734e}.close{width:100%;margin-top:10px;background:#f2eeeb;color:#514843}
 .saved{position:fixed;top:calc(10px + env(safe-area-inset-top));left:50%;transform:translate(-50%,-20px);opacity:0;z-index:120;background:#202923;color:#fff;padding:9px 14px;border-radius:99px;font-size:13px;font-weight:800;transition:.22s}.saved.show{opacity:1;transform:translate(-50%,0)}
+
+.uploadMenuBtn{
+  margin-top:14px;border:1px solid rgba(255,255,255,.34);border-radius:15px;
+  padding:11px 15px;background:rgba(255,255,255,.18);color:#fff;
+  font-size:15px;font-weight:850;cursor:pointer;backdrop-filter:blur(10px);
+  box-shadow:inset 0 1px rgba(255,255,255,.22)
+}
+.uploadMenuBtn:active{transform:scale(.98)}
+.photoSheet{max-width:760px}
+.photoIntro{margin:-2px 0 14px;color:var(--muted);line-height:1.45}
+.photoDrop{
+  display:block;border:2px dashed #efc7b4;border-radius:20px;padding:20px;
+  background:#fff8f3;text-align:center;cursor:pointer
+}
+.photoDrop strong{display:block;font-size:18px;margin-bottom:5px}
+.photoDrop span{color:var(--muted);font-size:14px}
+.photoPreviewWrap{display:none;margin-top:14px}
+.photoPreviewWrap.show{display:block}
+#photoPreview{display:block;width:100%;max-height:46vh;object-fit:contain;border-radius:18px;background:#f5f1ee;border:1px solid #eaded7}
+.photoMeta{font-size:13px;color:var(--muted);margin:8px 3px 0;word-break:break-word}
+.photoActions{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:13px}
+.chooseAgain{background:#f3efec;color:#514843}
+.analyze{background:linear-gradient(120deg,var(--accent1),var(--accent2));color:#fff}
+.analyze:disabled{opacity:.48;cursor:not-allowed;box-shadow:none}
+.analysisNote{
+  margin-top:12px;padding:12px 14px;border-radius:15px;background:#eef4ff;
+  color:#285a9f;font-size:14px;line-height:1.4
+}
 @media(max-width:900px){
   .heroInner{align-items:flex-start}.appMark{width:54px;height:54px;font-size:29px}h1{font-size:28px}.sub{font-size:14px}
   main{padding:14px 10px}.dayToggle{font-size:20px;padding:14px 14px}.cal{width:38px;height:38px}
@@ -62,10 +90,38 @@ main{max-width:1240px;margin:auto;padding:20px 14px}
 </head>
 <body>
 <div class="saved" id="savedToast">✓ Scelte salvate</div>
-<header class="hero"><div class="heroInner"><div class="appMark">🍽️</div><div><h1>I miei Menù</h1><div class="sub">Scegli liberamente il tuo pranzo: un primo e due contorni, un secondo e due contorni oppure un menù completo con primo, secondo, contorno, pane, frutta e acqua (quando previsti).</div></div></div></header>
+<header class="hero"><div class="heroInner"><div class="appMark">🍽️</div><div><h1>I miei Menù</h1><div class="sub">Scegli liberamente il tuo pranzo: un primo e due contorni, un secondo e due contorni oppure un menù completo con primo, secondo, contorno, pane, frutta e acqua (quando previsti).</div><button class="uploadMenuBtn" id="openPhotoBtn" type="button">📷 Scatta o carica il menù</button></div></div></header>
 <main><div id="days"></div></main>
 <div class="actions"><button class="reset" id="resetBtn">🗑️ Azzera tutto</button><button class="primary" id="summaryBtn">📋 Crea riepilogo</button></div>
 <div class="modal" id="summaryModal"><div class="sheet"><div class="handle"></div><h2>Il tuo riepilogo</h2><div id="summaryText"></div><div class="sheetActions"><button class="copy" id="copyBtn">📋 Copia</button><button class="share" id="shareBtn">💬 Condividi</button></div><button class="close" id="closeBtn">Chiudi</button></div></div>
+
+<div class="modal" id="photoModal">
+  <div class="sheet photoSheet">
+    <div class="handle"></div>
+    <h2>Scatta o carica il menù</h2>
+    <p class="photoIntro">Inquadra tutto il foglio, possibilmente diritto, ben illuminato e senza riflessi. Potrai controllare la foto prima dell’analisi.</p>
+
+    <label class="photoDrop" for="menuPhotoInput">
+      <strong>📷 Scegli una foto</strong>
+      <span>Su iPhone potrai scattarla oppure selezionarla dalla libreria.</span>
+    </label>
+    <input id="menuPhotoInput" type="file" accept="image/*" hidden>
+
+    <div class="photoPreviewWrap" id="photoPreviewWrap">
+      <img id="photoPreview" alt="Anteprima del menù selezionato">
+      <div class="photoMeta" id="photoMeta"></div>
+      <div class="photoActions">
+        <button class="chooseAgain" id="chooseAgainBtn" type="button">Scegli un’altra foto</button>
+        <button class="analyze" id="analyzePhotoBtn" type="button" disabled>✨ Analizza il menù</button>
+      </div>
+      <div class="analysisNote" id="analysisNote">
+        Il caricamento e l’anteprima sono pronti. Nel passaggio successivo collegheremo l’analisi AI protetta, senza inserire la chiave segreta nell’app.
+      </div>
+    </div>
+
+    <button class="close" id="closePhotoBtn" type="button">Chiudi</button>
+  </div>
+</div>
 <script>
 const menu={
 "Lunedì 20":{"Primo":["Pasta integrale pomodoro e olive","Pasta all'olio","Pasta al pomodoro","Riso all'olio","Riso al pomodoro"],"Secondo":["Merluzzo al limone","Uova sode","Pizza margherita","Formaggio grana","Spezzatino di vitello"],"Contorno":["Spinaci","Patate e fagiolini","Cetrioli"],"Frutta + Pane":["Frutta","Pane","Cracker","Grissini","Budino","Yogurt"],"Acqua":["Acqua naturale","Acqua frizzante"]},
@@ -105,6 +161,44 @@ const modal=document.getElementById('summaryModal');document.getElementById('sum
 document.getElementById('copyBtn').onclick=async()=>{try{await navigator.clipboard.writeText(buildSummary());const b=document.getElementById('copyBtn');b.textContent='✓ Copiato';setTimeout(()=>b.textContent='📋 Copia',1300)}catch(e){}};
 document.getElementById('shareBtn').onclick=async()=>{const text=buildSummary();if(navigator.share)await navigator.share({title:'I miei Menù',text});else window.open('https://wa.me/?text='+encodeURIComponent(text),'_blank')};
 document.getElementById('resetBtn').onclick=()=>{if(confirm('Vuoi cancellare tutte le scelte?')){document.querySelectorAll('input[type=checkbox]').forEach(cb=>cb.checked=false);localStorage.removeItem('menuChoicesModern');updateCounters();showSaved();}};
+
+const photoModal=document.getElementById('photoModal');
+const menuPhotoInput=document.getElementById('menuPhotoInput');
+const photoPreview=document.getElementById('photoPreview');
+const photoPreviewWrap=document.getElementById('photoPreviewWrap');
+const photoMeta=document.getElementById('photoMeta');
+const analyzePhotoBtn=document.getElementById('analyzePhotoBtn');
+let selectedMenuPhoto=null;
+let previewObjectUrl=null;
+
+document.getElementById('openPhotoBtn').onclick=()=>photoModal.classList.add('show');
+document.getElementById('closePhotoBtn').onclick=()=>photoModal.classList.remove('show');
+photoModal.addEventListener('click',e=>{if(e.target===photoModal)photoModal.classList.remove('show')});
+document.getElementById('chooseAgainBtn').onclick=()=>menuPhotoInput.click();
+
+menuPhotoInput.addEventListener('change',()=>{
+  const file=menuPhotoInput.files && menuPhotoInput.files[0];
+  if(!file)return;
+  if(!file.type.startsWith('image/')){
+    alert('Seleziona una fotografia o un’immagine del menù.');
+    menuPhotoInput.value='';
+    return;
+  }
+  selectedMenuPhoto=file;
+  if(previewObjectUrl)URL.revokeObjectURL(previewObjectUrl);
+  previewObjectUrl=URL.createObjectURL(file);
+  photoPreview.src=previewObjectUrl;
+  const mb=(file.size/1024/1024).toFixed(2);
+  photoMeta.textContent=`${file.name} · ${mb} MB`;
+  photoPreviewWrap.classList.add('show');
+  analyzePhotoBtn.disabled=false;
+});
+
+analyzePhotoBtn.onclick=()=>{
+  document.getElementById('analysisNote').textContent=
+    'La foto è pronta. Per attivare il riconoscimento affidabile dobbiamo ora collegare un piccolo servizio protetto all’app. La chiave AI non verrà mai salvata nel sito pubblico.';
+};
+
 updateCounters();if('serviceWorker' in navigator)navigator.serviceWorker.register('./service-worker.js');
 </script>
 </body>
