@@ -123,7 +123,22 @@ main{max-width:1240px;margin:auto;padding:20px 14px}
   </div>
 </div>
 <script>
-const menu={
+const importedMenu = JSON.parse(localStorage.getItem("menuImportato") || "null");
+
+let menu = importedMenu?.giorni
+  ? Object.fromEntries(
+      importedMenu.giorni.map(g => [
+        g.giorno,
+        {
+          "Primo": g.primo || [],
+          "Secondo": g.secondo || [],
+          "Contorno": g.contorno || [],
+          "Frutta + Pane": g.fruttaPane || [],
+          "Acqua": g.acqua || ["Acqua naturale", "Acqua frizzante"]
+        }
+      ])
+    )
+  : {
 "Lunedì 20":{"Primo":["Pasta integrale pomodoro e olive","Pasta all'olio","Pasta al pomodoro","Riso all'olio","Riso al pomodoro"],"Secondo":["Merluzzo al limone","Uova sode","Pizza margherita","Formaggio grana","Spezzatino di vitello"],"Contorno":["Spinaci","Patate e fagiolini","Cetrioli"],"Frutta + Pane":["Frutta","Pane","Cracker","Grissini","Budino","Yogurt"],"Acqua":["Acqua naturale","Acqua frizzante"]},
 "Martedì 21":{"Primo":["Risotto cremoso alle zucchine","Pasta al pomodoro","Pasta all'olio","Riso all'olio","Riso al pomodoro"],"Secondo":["Seppioline in umido","Bresaola","Tortino di legumi","Caprese (mozzarella e pomodoro)"],"Contorno":["Broccoli","Insalata","Misto di verdure grigliate"],"Frutta + Pane":["Frutta","Pane","Cracker","Grissini","Budino","Yogurt"],"Acqua":["Acqua naturale","Acqua frizzante"]},
 "Mercoledì 22":{"Primo":["Gnocchetti al pesto di zucchine","Riso al pomodoro","Pasta al pomodoro","Riso all'olio","Pasta all'olio","Minestrone con riso"],"Secondo":["Platessa gratinata","Taleggio","Tortino di ceci","Mortadella","Fettine di tacchino alla valdostana"],"Contorno":["Fagiolini","Carote cotte","Insalata verde e rossa"],"Frutta + Pane":["Frutta","Pane","Cracker","Grissini","Budino","Yogurt"],"Acqua":["Acqua naturale","Acqua frizzante"]},
@@ -237,6 +252,8 @@ analyzePhotoBtn.onclick = async () => {
 
     document.getElementById("analysisNote").textContent =
       "✅ Menù letto correttamente. Adesso dobbiamo visualizzarlo nell’app.";
+      setTimeout(() => location.reload(), 1000);
+return;
 
     console.log("Menù riconosciuto:", result.menu);
   } catch (error) {
