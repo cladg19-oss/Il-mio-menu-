@@ -3,122 +3,109 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#ffffff">
+<meta name="theme-color" content="#ff6a3d">
 <meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="I miei Menù">
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="apple-touch-icon" href="icon-180.png">
 <title>I miei Menù</title>
 <style>
-:root{--bg:#fff8f3;--card:#fff;--text:#2c2522;--muted:#7a6e68;--border:#eadfd8;--accent:#ff7657;--green:#64b88f;--yellow:#ffc85a}
+:root{
+  --bg:#fff9f4;--card:#fff;--text:#221e1c;--muted:#766a65;--line:#efe3dc;
+  --orange:#ff7b21;--red:#f1362f;--green:#2f902d;--purple:#6d32a6;--blue:#1976d2;
+  --accent1:#ff4c39;--accent2:#ff9b25;--shadow:0 12px 34px rgba(87,48,29,.11)
+}
 *{box-sizing:border-box}
-body{margin:0;background:radial-gradient(circle at 90% 5%,rgba(255,200,90,.30),transparent 28%),radial-gradient(circle at 5% 22%,rgba(100,184,143,.16),transparent 25%),var(--bg);font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text",Arial,sans-serif;color:var(--text);padding-bottom:112px}
-header{position:relative;overflow:hidden;background:linear-gradient(135deg,#ff7354,#ff9b65 55%,#ffc15a);color:#fff;padding:calc(24px + env(safe-area-inset-top)) 18px 28px;border-radius:0 0 30px 30px;box-shadow:0 12px 28px rgba(96,49,25,.16)}
-header:before,header:after{content:"";position:absolute;border-radius:50%;background:rgba(255,255,255,.14)}
-header:before{width:170px;height:170px;right:-55px;top:-70px}
-header:after{width:110px;height:110px;left:-45px;bottom:-55px}
-h1{margin:0;font-size:30px;position:relative}.sub{margin-top:7px;font-size:15px;opacity:.94;position:relative}
-main{max-width:760px;margin:auto;padding:18px 14px}
-.day{background:rgba(255,255,255,.95);border-radius:24px;margin-bottom:16px;overflow:hidden;box-shadow:0 10px 28px rgba(65,38,24,.10);border:1px solid rgba(90,60,45,.07)}
-.day h2{font-size:21px;margin:0;padding:17px 18px;border-bottom:1px solid var(--border);background:linear-gradient(90deg,#fff,#fff8f3)}
-.group{padding:13px 16px 5px}.group h3{font-size:13px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);margin:0 0 8px}
-.group h3::before{content:"";display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:8px;background:var(--yellow)}
-.group:nth-of-type(3) h3::before{background:var(--accent)}
-.group:nth-of-type(4) h3::before{background:var(--green)}
-.group:nth-of-type(5) h3::before{background:#9b7bd3}
-.option{display:flex;align-items:flex-start;gap:12px;padding:12px 10px;margin:0 -2px;border-radius:14px;font-size:17px;line-height:1.25;transition:.18s ease}
-.option:has(input:checked){background:#fff1e8;transform:translateX(2px)}
-.option br{display:none}
-input{appearance:none;width:24px;height:24px;border-radius:8px;border:2px solid #d8ccc5;background:white;flex:0 0 auto;margin:0;display:grid;place-items:center}
-input:checked{background:linear-gradient(135deg,var(--accent),#ff9d64);border-color:transparent}
-input:checked:after{content:"✓";color:#fff;font-size:16px;font-weight:900}
-.actions{position:fixed;left:0;right:0;bottom:0;padding:10px 12px calc(10px + env(safe-area-inset-bottom));background:rgba(255,255,255,.90);backdrop-filter:blur(18px);border-top:1px solid rgba(80,60,50,.10);display:grid;grid-template-columns:.8fr 1.2fr;gap:10px;z-index:20}
-button{border:0;border-radius:16px;padding:15px 12px;font-size:16px;font-weight:800}
-.primary{background:linear-gradient(135deg,var(--accent),#ff9b63);color:#fff;box-shadow:0 8px 20px rgba(255,118,87,.27)}
-.secondary{background:#f0ebe7;color:#514843}
-#summaryBox{display:none;background:var(--card);border-radius:24px;padding:18px;margin-bottom:16px;box-shadow:0 10px 28px rgba(65,38,24,.10)}
-#summaryText{white-space:pre-wrap;background:#fff8f3;border-radius:17px;padding:14px;line-height:1.5;font-size:16px}
-.summaryActions{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px}
-.shareBtn{background:linear-gradient(135deg,#64b88f,#48a477);color:white}
-.copyBtn{background:#eaf1ff;color:#285dac}
-.small{font-size:13px;color:var(--muted);margin-top:8px}
+html{background:var(--bg)}
+body{margin:0;background:linear-gradient(180deg,#fff9f4 0,#fffdfb 45%,#fff8f2 100%);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;color:var(--text);padding-bottom:104px}
+.hero{position:relative;overflow:hidden;background:linear-gradient(120deg,var(--accent1),var(--accent2));color:#fff;padding:calc(22px + env(safe-area-inset-top)) 20px 24px;box-shadow:0 8px 24px rgba(255,91,46,.22)}
+.hero:before,.hero:after{content:"";position:absolute;border:3px solid rgba(255,255,255,.14);border-radius:50%}
+.hero:before{width:150px;height:150px;right:-35px;top:-62px}
+.hero:after{width:95px;height:95px;right:35px;top:-25px}
+.heroInner{max-width:1240px;margin:auto;display:flex;align-items:center;gap:16px;position:relative;z-index:1}
+.appMark{width:62px;height:62px;border-radius:18px;background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.25);display:grid;place-items:center;font-size:34px;box-shadow:inset 0 1px rgba(255,255,255,.25)}
+h1{margin:0;font-size:31px;line-height:1.05}.sub{margin:7px 0 0;font-size:15px;line-height:1.35;max-width:980px;opacity:.96}
+main{max-width:1240px;margin:auto;padding:20px 14px}
+.day{background:var(--card);border-radius:23px;margin-bottom:14px;overflow:hidden;box-shadow:var(--shadow);border:1px solid rgba(116,75,51,.07)}
+.dayToggle{width:100%;display:flex;align-items:center;gap:12px;padding:17px 20px;background:#fff;border:0;border-bottom:1px solid transparent;color:var(--text);font-size:22px;font-weight:800;text-align:left;cursor:pointer}
+.day.open .dayToggle{border-bottom-color:var(--line)}
+.cal{width:42px;height:42px;border-radius:12px;background:#fff6ef;display:grid;place-items:center;font-size:23px;flex:0 0 auto}
+.chev{margin-left:auto;font-size:24px;transition:transform .22s ease}.day.open .chev{transform:rotate(180deg)}
+.dayContent{display:none;padding:18px 18px 22px}.day.open .dayContent{display:grid;grid-template-columns:1.1fr 1fr 1fr 1fr .72fr}
+.group{padding:0 20px;border-left:1px solid var(--line);min-width:0}.group:first-child{border-left:0;padding-left:8px}
+.groupHead{display:flex;align-items:center;gap:10px;margin-bottom:13px;font-size:15px;font-weight:900;text-transform:uppercase;letter-spacing:.035em}
+.groupIcon{font-size:26px;line-height:1}.group[data-group="Primo"] .groupHead{color:var(--orange)}.group[data-group="Secondo"] .groupHead{color:var(--red)}.group[data-group="Contorno"] .groupHead{color:var(--green)}.group[data-group="Frutta + Pane"] .groupHead{color:var(--purple)}.group[data-group="Acqua"] .groupHead{color:var(--blue)}
+.option{display:flex;align-items:flex-start;gap:11px;padding:8px 0;font-size:16px;line-height:1.28;cursor:pointer;border-radius:10px}
+.option span{padding-top:1px}.option:active{opacity:.75}
+.option input{appearance:none;width:22px;height:22px;border:2px solid #dacbc4;border-radius:7px;background:#fff;display:grid;place-items:center;flex:0 0 auto;margin:0}
+.option input:checked{border-color:transparent;background:linear-gradient(135deg,var(--accent1),var(--accent2))}
+.option input:checked:after{content:"✓";font-size:15px;font-weight:900;color:#fff}
+.counter{margin-left:8px;border-radius:99px;background:#f3ece7;color:#655a55;padding:4px 8px;font-size:12px;font-weight:800}
+.actions{position:fixed;left:0;right:0;bottom:0;z-index:40;padding:10px 18px calc(10px + env(safe-area-inset-bottom));background:rgba(255,255,255,.91);backdrop-filter:blur(18px);border-top:1px solid rgba(105,76,60,.10);display:grid;grid-template-columns:.65fr 1.35fr;gap:12px}
+.actions button,.sheet button{border:0;border-radius:17px;padding:15px 16px;font-size:17px;font-weight:850;cursor:pointer}
+.reset{background:#fff5f1;color:#e43b30;box-shadow:0 4px 14px rgba(77,48,33,.06)}
+.primary{background:linear-gradient(120deg,var(--accent1),var(--accent2));color:#fff;box-shadow:0 8px 22px rgba(255,91,46,.26)}
+.modal{display:none;position:fixed;inset:0;z-index:90;background:rgba(32,25,22,.43);backdrop-filter:blur(8px);align-items:flex-end;justify-content:center}.modal.show{display:flex}
+.sheet{width:100%;max-width:720px;max-height:88vh;overflow:auto;background:#fff;border-radius:28px 28px 0 0;padding:12px 18px calc(20px + env(safe-area-inset-bottom));box-shadow:0 -16px 40px rgba(0,0,0,.16)}
+.handle{width:46px;height:5px;border-radius:99px;background:#ded3cd;margin:0 auto 15px}.sheet h2{margin:0 0 12px;font-size:25px}
+#summaryText{white-space:pre-wrap;background:#fff8f3;border-radius:17px;padding:15px;line-height:1.55;font-size:16px;border:1px solid #f2e3da}.sheetActions{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px}.copy{background:#eef4ff;color:#245baf}.share{background:#eaf8f0;color:#23734e}.close{width:100%;margin-top:10px;background:#f2eeeb;color:#514843}
+.saved{position:fixed;top:calc(10px + env(safe-area-inset-top));left:50%;transform:translate(-50%,-20px);opacity:0;z-index:120;background:#202923;color:#fff;padding:9px 14px;border-radius:99px;font-size:13px;font-weight:800;transition:.22s}.saved.show{opacity:1;transform:translate(-50%,0)}
+@media(max-width:900px){
+  .heroInner{align-items:flex-start}.appMark{width:54px;height:54px;font-size:29px}h1{font-size:28px}.sub{font-size:14px}
+  main{padding:14px 10px}.dayToggle{font-size:20px;padding:14px 14px}.cal{width:38px;height:38px}
+  .day.open .dayContent{display:block;padding:5px 16px 16px}.group{padding:13px 4px;border-left:0;border-top:1px solid var(--line)}.group:first-child{border-top:0;padding-left:4px}.groupHead{margin-bottom:5px}.option{padding:10px 4px;font-size:17px}
+  .actions{padding-left:10px;padding-right:10px;grid-template-columns:.8fr 1.2fr}.actions button{font-size:16px;padding:14px 10px}
+}
+@media(min-width:901px){.day:not(:first-child) .dayContent{padding-top:14px}.dayToggle:hover{background:#fffaf7}.option:hover{background:#fff8f4}}
 </style>
 </head>
 <body>
-<header><h1>🍽️ I miei Menù</h1><div class="sub">Scegli liberamente il tuo pranzo: un primo e due contorni, un secondo e due contorni oppure un menù completo con primo, secondo, contorno, pane, frutta e acqua (quando previsti).</div></header>
-<main>
-<section id="summaryBox"><h2>✨ Il tuo riepilogo</h2><div id="summaryText"></div><div class="summaryActions"><button class="copyBtn" id="copyBtn">📋 Copia</button><button class="shareBtn" id="shareBtn">💬 Condividi</button></div><div class="small">Le scelte vengono salvate automaticamente su questo iPhone.</div></section>
-<div id="days"></div>
-</main>
-<div class="actions">
-<button class="secondary" id="resetBtn">Azzera</button>
-<button class="primary" id="summaryBtn">Crea riepilogo</button>
-</div>
+<div class="saved" id="savedToast">✓ Scelte salvate</div>
+<header class="hero"><div class="heroInner"><div class="appMark">🍽️</div><div><h1>I miei Menù</h1><div class="sub">Scegli liberamente il tuo pranzo: un primo e due contorni, un secondo e due contorni oppure un menù completo con primo, secondo, contorno, pane, frutta e acqua (quando previsti).</div></div></div></header>
+<main><div id="days"></div></main>
+<div class="actions"><button class="reset" id="resetBtn">🗑️ Azzera tutto</button><button class="primary" id="summaryBtn">📋 Crea riepilogo</button></div>
+<div class="modal" id="summaryModal"><div class="sheet"><div class="handle"></div><h2>Il tuo riepilogo</h2><div id="summaryText"></div><div class="sheetActions"><button class="copy" id="copyBtn">📋 Copia</button><button class="share" id="shareBtn">💬 Condividi</button></div><button class="close" id="closeBtn">Chiudi</button></div></div>
 <script>
-const menu={"Lunedì 20": {"Primo": ["Pasta integrale pomodoro e olive", "Pasta all'olio", "Pasta al pomodoro", "Riso all'olio", "Riso al pomodoro"], "Secondo": ["Merluzzo al limone", "Uova sode", "Pizza margherita", "Formaggio grana", "Spezzatino di vitello"], "Contorno": ["Spinaci", "Patate e fagiolini", "Cetrioli"], "Frutta + Pane": ["Frutta","Pane","Cracker","Grissini","Budino","Yogurt","Acqua naturale","Acqua frizzante"]}, "Martedì 21": {"Primo": ["Risotto cremoso alle zucchine", "Pasta al pomodoro", "Pasta all'olio", "Riso all'olio", "Riso al pomodoro"], "Secondo": ["Seppioline in umido", "Bresaola", "Tortino di legumi", "Caprese (mozzarella e pomodoro)"], "Contorno": ["Broccoli", "Insalata", "Misto di verdure grigliate"], "Frutta + Pane": ["Frutta","Pane","Cracker","Grissini","Budino","Yogurt","Acqua naturale","Acqua frizzante"]}, "Mercoledì 22": {"Primo": ["Gnocchetti al pesto di zucchine", "Riso al pomodoro", "Pasta al pomodoro", "Riso all'olio", "Pasta all'olio", "Minestrone con riso"], "Secondo": ["Platessa gratinata", "Taleggio", "Tortino di ceci", "Mortadella", "Fettine di tacchino alla valdostana"], "Contorno": ["Fagiolini", "Carote cotte", "Insalata verde e rossa"], "Frutta + Pane": ["Frutta","Pane","Cracker","Grissini","Budino","Yogurt","Acqua naturale","Acqua frizzante"]}, "Giovedì 23": {"Primo": ["Insalata di riso", "Pasta all'olio", "Pasta al pomodoro", "Riso al pomodoro", "Riso all'olio"], "Secondo": ["Fusi di pollo", "Crescenza", "Speck", "Piatto freddo", "Hamburger di verdure"], "Contorno": ["Cavolfiore gratinato", "Fagiolini", "Carote julienne"], "Frutta + Pane": ["Frutta","Pane","Cracker","Grissini","Budino","Yogurt","Acqua naturale","Acqua frizzante"]}, "Venerdì 24": {"Primo": ["Ravioli di magro", "Pasta pomodoro e ricotta", "Riso all'olio", "Pasta all'olio", "Riso al pomodoro", "Pasta al pomodoro", "Passato di verdure e legumi con orzo"], "Secondo": ["Frittata", "Lenticchie al pomodoro", "Pollo pomodoro e olive", "Formaggio brie", "Tonno alla mediterranea"], "Contorno": ["Tris di verdure al forno", "Zucchine al forno", "Barbabietole"], "Frutta + Pane": ["Frutta","Pane","Cracker","Grissini","Budino","Yogurt","Acqua naturale","Acqua frizzante"]}};
+const menu={
+"Lunedì 20":{"Primo":["Pasta integrale pomodoro e olive","Pasta all'olio","Pasta al pomodoro","Riso all'olio","Riso al pomodoro"],"Secondo":["Merluzzo al limone","Uova sode","Pizza margherita","Formaggio grana","Spezzatino di vitello"],"Contorno":["Spinaci","Patate e fagiolini","Cetrioli"],"Frutta + Pane":["Frutta","Pane","Cracker","Grissini","Budino","Yogurt"],"Acqua":["Acqua naturale","Acqua frizzante"]},
+"Martedì 21":{"Primo":["Risotto cremoso alle zucchine","Pasta al pomodoro","Pasta all'olio","Riso all'olio","Riso al pomodoro"],"Secondo":["Seppioline in umido","Bresaola","Tortino di legumi","Caprese (mozzarella e pomodoro)"],"Contorno":["Broccoli","Insalata","Misto di verdure grigliate"],"Frutta + Pane":["Frutta","Pane","Cracker","Grissini","Budino","Yogurt"],"Acqua":["Acqua naturale","Acqua frizzante"]},
+"Mercoledì 22":{"Primo":["Gnocchetti al pesto di zucchine","Riso al pomodoro","Pasta al pomodoro","Riso all'olio","Pasta all'olio","Minestrone con riso"],"Secondo":["Platessa gratinata","Taleggio","Tortino di ceci","Mortadella","Fettine di tacchino alla valdostana"],"Contorno":["Fagiolini","Carote cotte","Insalata verde e rossa"],"Frutta + Pane":["Frutta","Pane","Cracker","Grissini","Budino","Yogurt"],"Acqua":["Acqua naturale","Acqua frizzante"]},
+"Giovedì 23":{"Primo":["Insalata di riso","Pasta all'olio","Pasta al pomodoro","Riso al pomodoro","Riso all'olio"],"Secondo":["Fusi di pollo","Crescenza","Speck","Piatto freddo","Hamburger di verdure"],"Contorno":["Cavolfiore gratinato","Fagiolini","Carote julienne"],"Frutta + Pane":["Frutta","Pane","Cracker","Grissini","Budino","Yogurt"],"Acqua":["Acqua naturale","Acqua frizzante"]},
+"Venerdì 24":{"Primo":["Ravioli di magro","Pasta pomodoro e ricotta","Riso all'olio","Pasta all'olio","Riso al pomodoro","Pasta al pomodoro","Passato di verdure e legumi con orzo"],"Secondo":["Frittata","Lenticchie al pomodoro","Pollo pomodoro e olive","Formaggio brie","Tonno alla mediterranea"],"Contorno":["Tris di verdure al forno","Zucchine al forno","Barbabietole"],"Frutta + Pane":["Frutta","Pane","Cracker","Grissini","Budino","Yogurt"],"Acqua":["Acqua naturale","Acqua frizzante"]}
+};
+const icons={"Primo":"🍝","Secondo":"🥩","Contorno":"🥗","Frutta + Pane":"🍎","Acqua":"💧"};
 const daysEl=document.getElementById('days');
-const saved=JSON.parse(localStorage.getItem('menuChoices')||'{}');
+const saved=JSON.parse(localStorage.getItem('menuChoicesModern')||'{}');
 
-for(const [day,groups] of Object.entries(menu)){
-  const card=document.createElement('section'); card.className='day';
-  card.innerHTML=`<h2>${day}</h2>`;
-  for(const [group,items] of Object.entries(groups)){
-    const wrap=document.createElement('div'); wrap.className='group';
-    wrap.innerHTML=`<h3>${group}</h3>`;
+Object.entries(menu).forEach(([day,groups],dayIndex)=>{
+  const card=document.createElement('section');card.className='day'+(dayIndex===0?' open':'');
+  const toggle=document.createElement('button');toggle.className='dayToggle';toggle.type='button';toggle.setAttribute('aria-expanded',dayIndex===0?'true':'false');
+  toggle.innerHTML=`<span class="cal">📅</span><span>${day}</span><span class="counter">0</span><span class="chev">⌄</span>`;
+  const content=document.createElement('div');content.className='dayContent';
+  Object.entries(groups).forEach(([group,items])=>{
+    const wrap=document.createElement('div');wrap.className='group';wrap.dataset.group=group;
+    wrap.innerHTML=`<div class="groupHead"><span class="groupIcon">${icons[group]}</span><span>${group}</span></div>`;
     items.forEach(item=>{
       const id=btoa(unescape(encodeURIComponent(day+'|'+group+'|'+item))).replace(/=/g,'');
-      const label=document.createElement('label'); label.className='option';
+      const label=document.createElement('label');label.className='option';
       label.innerHTML=`<input type="checkbox" id="${id}" data-day="${day}" data-group="${group}" data-item="${item}"><span>${item}</span>`;
-      const cb=label.querySelector('input');
-      cb.checked=!!saved[id];
-      cb.addEventListener('change',saveChoices);
+      const cb=label.querySelector('input');cb.checked=!!saved[id];cb.addEventListener('change',()=>{saveChoices();updateCounters();showSaved();});
       wrap.appendChild(label);
-    });
-    card.appendChild(wrap);
-  }
-  daysEl.appendChild(card);
-}
-
-function saveChoices(){
-  const state={};
-  document.querySelectorAll('input[type=checkbox]').forEach(cb=>{if(cb.checked) state[cb.id]=true;});
-  localStorage.setItem('menuChoices',JSON.stringify(state));
-}
-
-function makeSummary(){
-  let text='';
-  for(const day of Object.keys(menu)){
-    const selected=[...document.querySelectorAll(`input[data-day="${day}"]:checked`)];
-    if(selected.length){
-      text+=day+'\n';
-      selected.forEach(cb=>text+=`• ${cb.dataset.group}: ${cb.dataset.item}\n`);
-      text+='\n';
-    }
-  }
-  document.getElementById('summaryText').textContent=text||'Non hai ancora selezionato nulla.';
-  document.getElementById('summaryBox').style.display='block';
-  document.getElementById('summaryBox').scrollIntoView({behavior:'smooth',block:'start'});
-}
-
-document.getElementById('summaryBtn').addEventListener('click',()=>makeSummary());
-document.getElementById('copyBtn').addEventListener('click',async()=>{
-  const text=document.getElementById('summaryText').textContent;
-  try{await navigator.clipboard.writeText(text); document.getElementById('copyBtn').textContent='✓ Copiato'; setTimeout(()=>document.getElementById('copyBtn').textContent='📋 Copia',1400);}catch(e){}
+    });content.appendChild(wrap);
+  });
+  toggle.addEventListener('click',()=>{const open=card.classList.toggle('open');toggle.setAttribute('aria-expanded',open?'true':'false');});
+  card.append(toggle,content);daysEl.appendChild(card);
 });
-document.getElementById('shareBtn').addEventListener('click',async()=>{
-  const text=document.getElementById('summaryText').textContent;
-  if(navigator.share){await navigator.share({title:'I miei Menù',text});}
-  else{window.open('https://wa.me/?text='+encodeURIComponent(text),'_blank');}
-});
-document.getElementById('resetBtn').addEventListener('click',()=>{
-  if(confirm('Vuoi cancellare tutte le scelte?')){
-    document.querySelectorAll('input[type=checkbox]').forEach(cb=>cb.checked=false);
-    localStorage.removeItem('menuChoices');
-    document.getElementById('summaryBox').style.display='none';
-  }
-});
-if('serviceWorker' in navigator) navigator.serviceWorker.register('./service-worker.js');
+function saveChoices(){const state={};document.querySelectorAll('input[type=checkbox]').forEach(cb=>{if(cb.checked)state[cb.id]=true});localStorage.setItem('menuChoicesModern',JSON.stringify(state));}
+function updateCounters(){document.querySelectorAll('.day').forEach(card=>{const n=card.querySelectorAll('input:checked').length;card.querySelector('.counter').textContent=n;});}
+let toastTimer;function showSaved(){const t=document.getElementById('savedToast');t.classList.add('show');clearTimeout(toastTimer);toastTimer=setTimeout(()=>t.classList.remove('show'),1100);}
+function buildSummary(){let text='🍽️ LE MIE SCELTE\n\n',any=false;Object.keys(menu).forEach(day=>{const chosen=[...document.querySelectorAll(`input[data-day="${day}"]:checked`)];if(chosen.length){any=true;text+=`📅 ${day}\n`;chosen.forEach(cb=>text+=`• ${cb.dataset.group}: ${cb.dataset.item}\n`);text+='\n';}});return any?text:'Non hai ancora selezionato nulla.';}
+const modal=document.getElementById('summaryModal');document.getElementById('summaryBtn').onclick=()=>{document.getElementById('summaryText').textContent=buildSummary();modal.classList.add('show')};document.getElementById('closeBtn').onclick=()=>modal.classList.remove('show');modal.onclick=e=>{if(e.target===modal)modal.classList.remove('show')};
+document.getElementById('copyBtn').onclick=async()=>{try{await navigator.clipboard.writeText(buildSummary());const b=document.getElementById('copyBtn');b.textContent='✓ Copiato';setTimeout(()=>b.textContent='📋 Copia',1300)}catch(e){}};
+document.getElementById('shareBtn').onclick=async()=>{const text=buildSummary();if(navigator.share)await navigator.share({title:'I miei Menù',text});else window.open('https://wa.me/?text='+encodeURIComponent(text),'_blank')};
+document.getElementById('resetBtn').onclick=()=>{if(confirm('Vuoi cancellare tutte le scelte?')){document.querySelectorAll('input[type=checkbox]').forEach(cb=>cb.checked=false);localStorage.removeItem('menuChoicesModern');updateCounters();showSaved();}};
+updateCounters();if('serviceWorker' in navigator)navigator.serviceWorker.register('./service-worker.js');
 </script>
 </body>
 </html>
