@@ -194,9 +194,58 @@ menuPhotoInput.addEventListener('change',()=>{
   analyzePhotoBtn.disabled=false;
 });
 
-analyzePhotoBtn.onclick=()=>{
-  document.getElementById('analysisNote').textContent=
-    'La foto è pronta. Per attivare il riconoscimento affidabile dobbiamo ora collegare un piccolo servizio protetto all’app. La chiave AI non verrà mai salvata nel sito pubblico.';
+analyzePhotoBtn.onclick = async () => {
+  if (!selectedMenuPhoto) {
+    alert("Prima scegli una foto del menù.");
+    return;
+  }
+
+  analyzePhotoBtn.disabled = true;
+  analyzePhotoBtn.textContent = "⏳ Analisi in corso…";
+  document.getElementById("analysisNote").textContent =
+    "Sto leggendo il menù. Attendi qualche secondo…";
+
+  try {
+    const image = await new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload = () => resolve(reader.result);
+      reader.onerror = () => reject(new Error("Impossibile leggere la foto."));
+      reader.readAsDataURL(selectedMenuPhoto);
+    });
+
+    const response = await fetch(
+      "https://menu-ai.cladg19.workers.dev/",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ image })
+      }
+    );
+
+    const result = await response.json();
+
+    if (!response.ok || !result.ok) {
+      throw new Error(result.error || "Analisi non riuscita.");
+    }
+
+    localStorage.setItem(
+      "menuImportato",
+      JSON.stringify(result.menu)
+    );
+
+    document.getElementById("analysisNote").textContent =
+      "✅ Menù letto correttamente. Adesso dobbiamo visualizzarlo nell’app.";
+
+    console.log("Menù riconosciuto:", result.menu);
+  } catch (error) {
+    document.getElementById("analysisNote").textContent =
+      "❌ " + error.message;
+  } finally {
+    analyzePhotoBtn.disabled = false;
+    analyzePhotoBtn.textContent = "✨ Analizza il menù";
+  }
 };
 
 updateCounters();if('serviceWorker' in navigator)navigator.serviceWorker.register('./service-worker.js');
